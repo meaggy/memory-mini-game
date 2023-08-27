@@ -1,8 +1,10 @@
 let gamePattern = [];
-let userPattern = null;
+let userPattern = [];
 let buttons = ["red", "blue", "green", "yellow"];
 let initalize = true;
 let level = 0;
+
+
 // let clickCount = 0;
 
 // Begin game
@@ -31,7 +33,7 @@ function playSound(name) {
 function checkAnswer(currentLevel) {
     console.log("checking", currentLevel);
     console.log(userPattern, "==>", gamePattern);
-    if (userPattern === gamePattern[currentLevel]){
+    if (userPattern[currentLevel] === gamePattern[currentLevel]){
         // console.log("correct!");
         return true;
     }
@@ -40,37 +42,46 @@ function checkAnswer(currentLevel) {
 
         return false;
     };
+
 };
 
 function nextSequence() {
-    $("h1").text(`Level ${level}`);
+    $("#level-title").text(`Level ${level}`);    
     let randomNumber = Math.floor(Math.random() * 4);
     let randomColor = buttons[randomNumber];
     animatePress(randomColor);
     playSound(randomColor);
     console.log("Game pattern color ===>", randomColor);
     gamePattern.push(randomColor);
+
 };
 
-function resetTrackers(){
-    // checkAnswer = false; // reset
-    userPattern = null; // reset    
-};
+// function resetTrackers(){
+//     // checkAnswer = false; // reset
+//     userPattern = null; // reset    
+// };
 // levels are wrong! checkig the wrong index
 
 // Main functionality
 $(".btn").click((event) => {
-    let currentColor = event.target.id;
-    animatePress(currentColor);
-    playSound(currentColor);
-    userPattern = currentColor;
+    let clickedColor = event.target.id;
+    animatePress(clickedColor);
+    playSound(clickedColor);
+    userPattern.push(clickedColor);
+    //if check answer and pattern length
     if (checkAnswer(level)) {
         // debugger;
-        console.log("correct, next sequence ");
-        setTimeout(nextSequence, 1000);
-        level++;
-        resetTrackers();
-    }
+        
+        if (userPattern.length === gamePattern.length){
+             console.log("correct, next sequence ");
+
+             setTimeout(nextSequence, 1000);
+
+             userPattern = []; // reset
+        };
+       
+        
+    };
     // else {console.log("game over!")}
    }
 );
