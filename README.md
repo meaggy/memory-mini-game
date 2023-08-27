@@ -1,1 +1,1 @@
-Basic memory game built with jQquery, html and css. 
+Basic memory game built with jQuery, html and css. 
