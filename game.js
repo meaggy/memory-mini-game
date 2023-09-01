@@ -1,19 +1,5 @@
 let buttons = ["red", "blue", "green", "yellow"];
-let initalize = true;
-
-
-// Begin game
-$(document).keydown((event) => {
-    if (initalize === true ){    
-        gamePattern = [];
-        userPattern = [];
-        level = 0;
-        initalize = true;    
-        $("#level-title").text("Level 1");
-        nextSequence();
-        initalize = false;
-    };
-});
+let initialize = true;
 
 // Helpers -------------------------------------------------------------
 function animatePress(color){
@@ -26,6 +12,21 @@ function playSound(name) {
     audio.play(); 
 };
 ///---------------------------------------------------------------------
+
+// Begin game
+$(document).keydown((event) => {
+    if (initialize === true ){    
+        gamePattern = [];
+        userPattern = [];
+        level = 0;
+        initialize = true;    
+        $("#level-title").text("Level 1");
+        nextSequence();
+        initialize = false;
+    };
+});
+
+// Main functionality
 function checkAnswer(index){
     if (userPattern[index] === gamePattern[index]){
         return true;
@@ -46,7 +47,6 @@ function nextSequence() {
     
 };
 
-// Main functionality
 $(".btn").click((event) => {
     let clickedColor = event.target.id;
     animatePress(clickedColor);
@@ -63,7 +63,7 @@ $(".btn").click((event) => {
             $("body").addClass("game-over");
             setTimeout( () => {$("body").removeClass("game-over")}, 200);
             $("#level-title").text("Game Over! Press any key to restart");
-            initalize = true;
+            initialize = true;
         };     
     }
 );
