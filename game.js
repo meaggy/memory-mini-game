@@ -9,7 +9,7 @@ $(document).keydown((event) => {
         userPattern = [];
         level = 0;
         initalize = true;    
-        $("#level-title").text("Level 0");
+        $("#level-title").text("Level 1");
         nextSequence();
         initalize = false;
     };
@@ -36,13 +36,14 @@ function checkAnswer(index){
 };
 
 function nextSequence() {
+    level++;
     $("#level-title").text(`Level ${level}`);    
     let randomNumber = Math.floor(Math.random() * 4);
     let randomColor = buttons[randomNumber];
     animatePress(randomColor);
     playSound(randomColor);
     gamePattern.push(randomColor);
-    level++;
+    
 };
 
 // Main functionality
